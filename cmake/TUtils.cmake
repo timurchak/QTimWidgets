@@ -1,0 +1,10 @@
+macro(t_debug _TEXT)    
+        message(STATUS "(${PROJECT_NAME}) ${_TEXT}")    
+endmacro(t_debug _TEXT)
+
+macro(t_check_param _PARAM _NAME _ERROR_SENDER)
+    if(NOT DEFINED ${_PARAM})
+        message(WARNING "${_ERROR_SENDER} called from ${CMAKE_CURRENT_LIST_FILE}")
+        message(SEND_ERROR "${_ERROR_SENDER} called with missing arguments: ${_NAME}")
+    endif(NOT DEFINED ${_PARAM})
+endmacro(t_check_param _PARAM _NAME _ERROR_SENDER)

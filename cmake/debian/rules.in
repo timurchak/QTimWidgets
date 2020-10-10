@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+        @PACK_DEB_CMAKE_OPTIONS@
+
+override_dh_usrlocal:
+
+override_dh_shlibdeps:

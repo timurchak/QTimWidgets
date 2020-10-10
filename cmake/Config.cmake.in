@@ -1,0 +1,21 @@
+set(@_PCN_PACKAGE_NAME@_VERSION "@PROJECT_VERSION@")
+
+@PACKAGE_INIT@
+
+set_and_check(@_PCN_PACKAGE_NAME@_INCLUDE_DIR "@PACKAGE_INCLUDE_INSTALL_DIR@")
+
+if(@_PCN_CONFIG_NOT_TARGETS@)
+    include("${CMAKE_CURRENT_LIST_DIR}/@_PCN_PACKAGE_NAME@Targets.cmake")
+    message(STATUS "Found @_PCN_PACKAGE_NAME@")
+endif(@_PCN_CONFIG_NOT_TARGETS@)
+
+foreach(component ${@_PCN_PACKAGE_NAME@_FIND_COMPONENTS})
+  if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/@_PCN_PACKAGE_NAME@-${component}Config.cmake)
+      include(${CMAKE_CURRENT_LIST_DIR}/@_PCN_PACKAGE_NAME@-${component}Config.cmake)
+      set(@_PCN_PACKAGE_NAME@_${component}_FOUND TRUE)
+  else(EXISTS ${CMAKE_CURRENT_LIST_DIR}/@_PCN_PACKAGE_NAME@-${component}Config.cmake)
+      message(STATUS "Not found @_PCN_PACKAGE_NAME@ component ${component}")
+  endif(EXISTS ${CMAKE_CURRENT_LIST_DIR}/@_PCN_PACKAGE_NAME@-${component}Config.cmake)
+endforeach(component ${@_PCN_PACKAGE_NAME@_FIND_COMPONENTS})
+
+check_required_components(@_PCN_PACKAGE_NAME@)

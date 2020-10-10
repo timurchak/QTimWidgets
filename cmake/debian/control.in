@@ -1,0 +1,12 @@
+Source: @CPACK_PACKAGE_NAME@
+Maintainer: @CPACK_PACKAGE_CONTACT@
+Section: @PACK_GROUP@
+Priority: optional
+Standarts-Version: 3.9.2
+Build-Depends: debhelper(>=9)
+
+Package: @CPACK_PACKAGE_NAME@
+Architecture: @CPACK_DEBIAN_PACKAGE_ARCHITECTURE@
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: @CPACK_PACKAGE_DESCRIPTION_SUMMARY@
+	@CPACK_PACKAGE_DESCRIPTION@

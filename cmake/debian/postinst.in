@@ -1,0 +1,18 @@
+#!/bin/bash
+check_for_user_f() {
+    IAM="$(echo | whoami)"
+    RVALUE="${1}"
+    if [ "$IAM" == "$RVALUE" ]; then
+        retval=0
+    else
+        retval=1
+    fi
+    return $retval
+}
+set -e
+
+if check_for_user_f "root"; then
+    ldconfig
+    echo "root detected, performing actions . . ."
+    echo "lib postinst done!"
+fi
