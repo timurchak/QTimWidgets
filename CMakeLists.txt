@@ -63,9 +63,12 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}
     HEADERS        
 
         src/include/qdynamicgridlayout.h
+        src/include/qdoublescrollbar.h
+        src/include/qdoubleslider.h
     SOURCES        
-
         src/qdynamicgridlayout.cpp
+        src/qdoublescrollbar.cpp
+        src/qdoubleslider.cpp
     )
     
 
