@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 
 project(QTimWidgets)
-export(PACKAGE "QTimWidgets")
+export(PACKAGE "qtimwidgets")
 #version info
 set(${PROJECT_NAME}_MAJOR_VERSION 0)
 set(${PROJECT_NAME}_MINOR_VERSION 0)
@@ -84,7 +84,7 @@ if(WIN32)
     set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${CUSTOM_CXX_FLAGS})
 endif(WIN32)
 
-set(TARGET_LIBRARY ${PROJECT_NAME})
+set(TARGET_LIBRARY qtimwidgets)
 
 qt5_wrap_cpp(${PROJECT_NAME}_MOCs ${${PROJECT_NAME}_QT_HEADERS})
 
@@ -121,8 +121,7 @@ target_link_libraries(${TARGET_LIBRARY}
     ${${PROJECT_NAME}_OPT_LIBS}
     Qt5::Widgets
     Qt5::Core
-    Qt5::Gui
-    plnlog
+    Qt5::Gui    
 )
 
 t_debug("CMAKE_INSTALL_LIBDIR = ${CMAKE_INSTALL_LIBDIR}")
@@ -133,6 +132,10 @@ t_shlib_install(TARGETS ${TARGET_LIBRARY}
     LIBRARY
     DESTINATION "${CMAKE_INSTALL_LIBDIR}"
     PUBLIC_HEADER
+    DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${TARGET_LIBRARY}"
+    COMPONENT dev)
+
+install(FILES ${${TARGET_LIBRARY}_HEADERS}
     DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${TARGET_LIBRARY}"
     COMPONENT dev)
 
@@ -154,5 +157,5 @@ if(UNIX)
         SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "KK")
     endif(BUILD_DEB)
 endif(UNIX)
-
+include(CPackConfig.cmake)
 include(CPack)
