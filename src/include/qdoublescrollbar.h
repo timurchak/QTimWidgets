@@ -13,6 +13,7 @@ public:
     int getNumbAP() const;
     double getCustomValue() const;
     void setCustomValue(double val);
+    void setCustomValueWithoutSignal(double val);
     void setCustomMinimum(double val);
     void setCustomMaximum(double val);
     void setCustomRange(double min, double max);
@@ -26,6 +27,7 @@ private slots:
 private:
     int numbAP;
     double timedt;
+    double decimal;
 signals:
     void valueChangedCustom(double);
 };
