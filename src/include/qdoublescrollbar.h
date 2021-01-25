@@ -5,6 +5,7 @@
 #include <QDateTime>
 #include <QScrollBar>
 #include <cmath>
+#include <QDebug>
 
 class QDoubleScrollBar : public QScrollBar {
     Q_OBJECT
@@ -20,16 +21,25 @@ public:
 
     void setNumbAP(int value);
     double getTimedt() const;
+    bool getPress() const;
+
+    void setPress(bool value);
+
 public slots:
     void requestCustomValue(int val);
+    void requestSliderReleased();
+    void requestSliderPressed();
 private slots:
 
 private:
     int numbAP;
     double timedt;
     double decimal;
+    bool press = false;
 signals:
     void valueChangedCustom(double);
+    void sliderReleasedCustom(double);
+    void changePress(bool);
 };
 
 #endif // QDOUBLESCROLLBAR_H

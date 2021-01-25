@@ -11,6 +11,8 @@ QDoubleScrollBar::QDoubleScrollBar(QWidget* par)
     dt.setDate(QDate(year, 1, 1));
     timedt = static_cast<double>(dt.toTime_t());
     connect(this, &QDoubleScrollBar::valueChanged, this, &QDoubleScrollBar::requestCustomValue);
+    connect(this, &QDoubleScrollBar::sliderReleased, this, &QDoubleScrollBar::requestSliderReleased);
+    connect(this, &QDoubleScrollBar::sliderPressed, this, &QDoubleScrollBar::requestSliderPressed);
 }
 
 int QDoubleScrollBar::getNumbAP() const { return numbAP; }
@@ -65,5 +67,33 @@ double QDoubleScrollBar::getTimedt() const { return timedt; }
 void QDoubleScrollBar::requestCustomValue(int val)
 {
     double newvalue = (timedt + static_cast<double>(val / decimal));
+    qDebug() << press;
     emit valueChangedCustom(newvalue);
+}
+
+void QDoubleScrollBar::requestSliderReleased()
+{
+    press = false;
+    emit changePress(press);
+    emit valueChangedCustom(getCustomValue());
+    //emit sliderReleasedCustom(getCustomValue());
+}
+
+void QDoubleScrollBar::requestSliderPressed()
+{
+    press = true;
+    emit changePress(press);
+}
+
+void QDoubleScrollBar::setPress(bool value)
+{
+    press = value;
+    if(!press) {
+        emit valueChangedCustom(getCustomValue());
+    }
+}
+
+bool QDoubleScrollBar::getPress() const
+{
+    return press;
 }
